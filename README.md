@@ -13,37 +13,118 @@
 
 ---
 
+## 🎥 Preview
+
+<p align="center">
+  <img src="./docs/demo.gif" width="800" />
+</p>
+
+---
+
 ## ⚡ Visão Geral
 
-O **WebGL Particle Simulator** é uma aplicação interativa construída com React + TypeScript que simula sistemas de partículas em tempo real com aceleração via **WebGL2**.  
-O projeto combina uma interface moderna com um motor de simulação otimizado para alta quantidade de partículas, suportando presets visuais, colisões, flocking e obstáculos dinâmicos.
+O **WebGL Particle Simulator** é uma aplicação interativa que simula sistemas de partículas em tempo real com aceleração via **WebGL2**.
+
+A simulação é executada em um **motor imperativo independente**, enquanto o React atua exclusivamente como camada de interface e controle, garantindo alta performance e desacoplamento arquitetural.
+
+O projeto combina computação gráfica, física em tempo real e otimizações de baixo nível para suportar grandes volumes de partículas com fluidez.
+
+---
 
 ## ✨ Principais Recursos
 
-- **Renderização via GPU (WebGL2)**:
-  - Renderização em lote com instancing para até **50.000 partículas**.
-  - Efeito de bloom opcional e trilhas suaves com fade entre frames.
-- **Física em tempo real**:
-  - Gravidade, atrito, atração/repulsão por ponteiro.
-  - Colisão partícula-partícula e partícula-obstáculo.
-  - Integração com delta time para comportamento estável.
-- **Otimizações de desempenho**:
-  - Spatial Hash Grid para busca de vizinhos.
-  - Reuso de buffers/arrays para reduzir garbage collection.
-  - Atualizações de UI desacopladas do loop principal.
-- **Controles interativos**:
-  - Criar matéria com clique/arrasto.
-  - Alternar pausa, reset da cena e modo obstáculo.
-  - Painel de parâmetros com sliders e toggles.
-- **Biblioteca de presets**:
-  - Coleção de modos como `Nebula`, `Black Hole`, `Firestorm`, `Quantum`, `Cyberpunk`, entre outros.
+### 🖥️ Renderização via GPU (WebGL2)
+- Instancing para renderização em lote
+- Suporte a até **50.000 partículas**
+- Trilhas com fade temporal entre frames
+- Efeito de bloom opcional
+
+### ⚙️ Física em tempo real
+- Gravidade, atrito e forças dinâmicas
+- Atração/repulsão baseada no ponteiro
+- Colisões:
+  - Partícula-partícula
+  - Partícula-obstáculo
+- Integração baseada em **delta time**
+
+### 🚀 Otimizações de desempenho
+- Spatial Hash Grid para busca eficiente de vizinhos *(O(n²) → O(n))*
+- Reuso de buffers para evitar garbage collection
+- Loop de simulação desacoplado da UI
+- Minimização de draw calls via batching
+
+### 🎮 Controles interativos
+- Spawn de partículas via clique/arrasto
+- Pausar / resetar simulação
+- Criação de obstáculos dinâmicos
+- Painel de controle com sliders e toggles
+
+### 🎨 Biblioteca de presets
+- `Nebula`
+- `Black Hole`
+- `Firestorm`
+- `Quantum`
+- `Cyberpunk`
+- e outros modos visuais
+
+---
+
+## 🧠 Arquitetura do Sistema
+
+O projeto é dividido em três camadas principais:
+
+- **Engine (Simulação)**  
+  Responsável por toda a lógica física, colisões e atualização de estado.  
+  Totalmente desacoplada da interface.
+
+- **Renderer (WebGL2)**  
+  Gerencia buffers, shaders e draw calls.  
+  Utiliza instancing para renderização altamente eficiente.
+
+- **UI (React)**  
+  Interface de controle e interação com o usuário.  
+  Não interfere diretamente no loop da simulação.
+
+---
+
+## 📊 Performance
+
+- Até **50.000 partículas** em tempo real
+- ~60 FPS em máquinas modernas
+- Redução de complexidade de colisão: **O(n²) → O(n)**
+- Uso otimizado de memória com buffers reutilizáveis
+
+---
+
+## 🧩 Desafios Técnicos
+
+- Evitar gargalo de colisões *(O(n²))* → uso de **Spatial Hash Grid**
+- Minimizar garbage collection → reuso de estruturas de dados
+- Separação entre loop imperativo e React
+- Controle de estabilidade física com delta time
+- Redução de draw calls com instancing
+
+---
+
+## 🔮 Roadmap
+
+- [ ] Paralelização com Web Workers
+- [ ] Migração para WebGPU
+- [ ] Exportação de simulações (GIF / JSON)
+- [ ] Editor de presets customizados
+- [ ] Sistema de partículas em 3D
+
+---
 
 ## 🛠️ Stack Tecnológica
 
-- **Core**: [React 19](https://react.dev/) + [TypeScript](https://www.typescriptlang.org/)
-- **Build**: [Vite 6](https://vitejs.dev/)
-- **UI / Motion**: [Tailwind CSS 4](https://tailwindcss.com/), [Lucide React](https://lucide.dev/), [Motion](https://motion.dev/)
-- **Deploy**: Cloudflare Pages (com guia em `docs/`)
+- **Core**: React 19 + TypeScript
+- **Build**: Vite 6
+- **UI / Motion**: Tailwind CSS 4, Lucide, Motion
+- **Rendering**: WebGL2
+- **Deploy**: Cloudflare Pages
+
+---
 
 ## 📂 Estrutura do Projeto
 
@@ -111,6 +192,12 @@ O projeto está preparado para deploy no **Cloudflare Pages**.
 
 ---
 
+## 📄 Licença
+
+Este projeto está sob a licença MIT.
+
+---
+
 <div align="center">
-  <p>Desenvolvido por <a href="https://github.com/NullCipherr">NullCipherr</a></p>
+  <p>Desenvolvido por <a href="https://github.com/NullCipherr">Andrei Costa</a></p>
 </div>
