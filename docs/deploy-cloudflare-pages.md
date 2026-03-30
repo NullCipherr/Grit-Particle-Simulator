@@ -1,8 +1,11 @@
 # Deploy no Cloudflare Pages (via GitHub)
 
+Este guia rápido foi mantido por compatibilidade. Para a versão completa, consulte:
+
+- `docs/en/DEPLOYMENT.md`
+- `docs/pt-br/DEPLOYMENT.md`
+
 ## 1) Publicar no GitHub
-1. Crie um repositorio no GitHub.
-2. Envie o projeto:
 
 ```bash
 git init
@@ -14,20 +17,23 @@ git push -u origin main
 ```
 
 ## 2) Conectar no Cloudflare Pages
+
 1. Acesse Cloudflare Dashboard > Workers & Pages > Create > Pages.
-2. Selecione Connect to Git e escolha o repositorio.
+2. Selecione **Connect to Git** e escolha o repositório.
 3. Configure:
    - Framework preset: `Vite`
    - Build command: `npm run build`
    - Build output directory: `dist`
    - Node version: `22`
-4. Clique em Save and Deploy.
+4. Clique em **Save and Deploy**.
 
-## 3) Variaveis de ambiente
-Se precisar de variaveis, adicione no Cloudflare Pages em Settings > Environment variables.
+## 3) Variáveis de ambiente
+
+Se necessário, configure em **Settings > Environment variables** no projeto do Pages.
 
 ## 4) SPA routing
-O arquivo `public/_redirects` ja esta configurado para fallback de rotas:
+
+O arquivo `public/_redirects` já está configurado para fallback de rotas:
 
 ```text
 /* /index.html 200
