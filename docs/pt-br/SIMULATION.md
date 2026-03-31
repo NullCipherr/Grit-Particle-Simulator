@@ -2,7 +2,8 @@
 
 ## Contrato de Configuração
 
-A interface `SimConfig` define os parâmetros de simulação:
+`SimConfig` é exportado por `@nullcipherr/grit-engine` e consumido diretamente pela UI.
+Campos expostos atualmente:
 
 - `gravity`
 - `friction`

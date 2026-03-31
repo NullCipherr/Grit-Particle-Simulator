@@ -1,6 +1,6 @@
 # Documentation
 
-This directory contains the technical documentation for **WebGL Particle Simulator**.
+This directory contains the technical documentation for **Grit Particle Simulator**.
 
 ## English
 

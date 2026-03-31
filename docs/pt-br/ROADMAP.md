@@ -2,15 +2,15 @@
 
 ## Curto Prazo
 
-- Atalhos de teclado para ações comuns.
-- Ajuda visual rápida dentro da interface.
-- Melhoria de acessibilidade dos grupos de controles.
+- [x] Atalhos de teclado para ações comuns.
+- [x] Ajuda visual rápida dentro da interface.
+- [x] Melhoria de acessibilidade dos grupos de controles.
 
 ## Médio Prazo
 
-- Exportar/importar presets em JSON.
-- Etapa de simulação opcional em Web Worker.
-- Cenários de benchmark para regressão de performance.
+- [x] Exportar/importar presets em JSON.
+- [x] Etapa opcional assistida por Web Worker (planejamento de spawn + análise de benchmark).
+- [x] Cenários de benchmark para regressão de performance.
 
 ## Longo Prazo
 

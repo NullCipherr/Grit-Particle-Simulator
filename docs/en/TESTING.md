@@ -20,10 +20,10 @@ npm run preview
 - Obstacle mode: creation and collision behavior.
 - Preset switching while simulation is running.
 - Pause/resume/reset controls.
-- Browser compatibility with WebGL2 support.
+- Browser compatibility with hardware acceleration enabled.
 
 ## Suggested Next Tests
 
-- Deterministic simulation unit tests around `Particle.update`.
+- Contract tests for integration points with `@nullcipherr/grit-engine` (config updates, pointer input, pause/resume).
 - Integration tests for UI controls with Playwright.
 - Performance regression baseline checks.

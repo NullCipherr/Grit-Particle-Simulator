@@ -1,13 +1,11 @@
 <div align="center">
-  <h1>WebGL Particle Simulator</h1>
-  <p><i>A real-time GPU-accelerated particle sandbox built with React, TypeScript, and WebGL2</i></p>
+  <h1>Grit Particle Simulator</h1>
+  <p><i>A real-time GPU-accelerated particle sandbox built with React and TypeScript</i></p>
 
   <p>
-    <a href="https://github.com/NullCipherr/WebGL-Particle-Simulator/actions/workflows/ci.yml"><img src="https://github.com/NullCipherr/WebGL-Particle-Simulator/actions/workflows/ci.yml/badge.svg" alt="CI" /></a>
     <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-1f6feb?style=flat-square" alt="License" /></a>
     <img src="https://img.shields.io/badge/React-19-149eca?style=flat-square&logo=react&logoColor=white" alt="React" />
     <img src="https://img.shields.io/badge/TypeScript-5.8-2f74c0?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript" />
-    <img src="https://img.shields.io/badge/WebGL-2.0-111111?style=flat-square" alt="WebGL2" />
   </p>
 </div>
 
@@ -40,13 +38,13 @@ Interactive canvas served at `/`:
 
 ## Overview
 
-**WebGL Particle Simulator** is a browser-based physics sandbox focused on smooth real-time visuals and direct interaction.
+**Grit Particle Simulator** is a browser-based physics sandbox focused on smooth real-time visuals and direct interaction.
 
 The project is built around:
 
-- A custom particle engine with configurable forces and collisions;
+- The GRIT Engine package (`@nullcipherr/grit-engine`) with configurable forces and collisions;
 - GPU instanced rendering for high particle counts;
-- Spatial partitioning (`SpatialGrid`) to reduce neighbor-search cost;
+- Spatial hashing for scalable neighbor lookup;
 - Preset-driven behavior switching for experimentation;
 - Lightweight CI (`typecheck + build`) and static deployment flow.
 
@@ -54,7 +52,7 @@ The project is built around:
 
 ## Features
 
-- **WebGL2 renderer** with instanced particles and optional bloom.
+- **Engine-driven rendering** with high particle throughput and optional bloom.
 - **Up to 50,000 particles** (`MAX_PARTICLES`) in a single simulation.
 - **Real-time controls** for gravity, attraction, friction, size, and toggles.
 - **Pointer interaction**: click/drag to spawn matter.
@@ -72,11 +70,10 @@ Main runtime flow:
 
 1. `src/main.tsx` bootstraps React.
 2. `src/App.tsx` mounts the full-screen simulator shell.
-3. `src/components/ParticleSimulator.tsx` orchestrates UI, input, simulation loop, and metrics.
-4. `src/engine/Particle.ts` applies forces, flocking, collisions, boundaries, and life decay.
-5. `src/engine/SpatialGrid.ts` indexes particles each frame for local neighbor queries.
-6. `src/engine/WebGLRenderer.ts` uploads instance data and renders particles on GPU.
-7. `src/components/SettingsPanel.tsx` updates `SimConfig` without polluting engine modules.
+3. `src/components/ParticleSimulator.tsx` handles UI, pointer events, and engine lifecycle.
+4. `src/components/ParticleSimulator.tsx` acts as wrapper between React state and the engine imperative API.
+5. `@nullcipherr/grit-engine` concentrates physics, spatial partitioning, and rendering.
+6. `src/components/SettingsPanel.tsx` updates `SimConfig` without polluting rendering modules.
 
 ---
 
@@ -84,11 +81,11 @@ Main runtime flow:
 
 Current performance-focused decisions:
 
-- Neighbor search via grid hashing instead of `O(n²)` full scans.
+- Neighbor search via spatial hashing instead of `O(n²)` full scans.
 - Throttled flocking calculations (`~30Hz`) and capped neighbor counts.
 - Reused temporary arrays to reduce GC pressure.
-- GPU-side color lookup via precomputed hue palette.
-- Fade pass and blend mode switching for visual trails/bloom.
+- GPU-side color lookup via precomputed hue palette in the engine package.
+- Optional bloom/trail behavior controlled by engine configuration.
 - UI counters updated at intervals (not every frame) to avoid unnecessary React work.
 
 For detailed guidance, see [Performance](docs/en/PERFORMANCE.md).
@@ -97,9 +94,9 @@ For detailed guidance, see [Performance](docs/en/PERFORMANCE.md).
 
 ## Technical Decisions
 
-- **Separated engine primitives** (`src/engine`) from UI components.
+- **Dedicated engine package** (`@nullcipherr/grit-engine`) consumed as dependency.
 - **Declarative config contract** through `SimConfig` type.
-- **WebGL context resilience** with context lost/restored handlers.
+- **Engine lifecycle isolation** in a React wrapper component.
 - **No backend dependency**: static-first architecture for low operational overhead.
 
 ---
@@ -122,7 +119,7 @@ See full plan in [Roadmap](docs/en/ROADMAP.md).
 
 - **Core**: React 19 + TypeScript
 - **Build**: Vite 6
-- **Rendering**: WebGL2 (custom renderer)
+- **Rendering**: `@nullcipherr/grit-engine`
 - **UI**: Tailwind CSS 4 + Lucide + Motion
 - **Deploy**: Cloudflare Pages
 - **CI**: GitHub Actions
@@ -162,11 +159,6 @@ See full plan in [Roadmap](docs/en/ROADMAP.md).
 │   │   └── SettingsPanel.tsx
 │   ├── constants/
 │   │   └── presets.ts
-│   ├── engine/
-│   │   ├── Obstacle.ts
-│   │   ├── Particle.ts
-│   │   ├── SpatialGrid.ts
-│   │   └── WebGLRenderer.ts
 │   ├── types/
 │   │   └── simulation.ts
 │   ├── App.tsx
@@ -200,6 +192,14 @@ npm run dev
 ```
 
 Open `http://localhost:3000`.
+
+If you are validating local changes in the sibling engine repository (`../grit-engine`), build it first:
+
+```bash
+cd ../grit-engine
+npm install
+npm run build
+```
 
 ### Type Check
 

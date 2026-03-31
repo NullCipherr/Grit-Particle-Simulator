@@ -1,6 +1,6 @@
 # Contributing Guide
 
-Thanks for your interest in contributing to **WebGL Particle Simulator**.
+Thanks for your interest in contributing to **Grit Particle Simulator**.
 
 ## Development Setup
 
@@ -26,5 +26,6 @@ npm run dev
 ## Code Style
 
 - Keep engine logic outside purely presentational UI components.
+- Consume simulation internals through `@nullcipherr/grit-engine` public APIs only.
 - Prefer explicit naming for modules and configs.
 - Add comments only for architectural or non-obvious decisions.

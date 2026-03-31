@@ -5,32 +5,29 @@
 The simulator is split into two major layers:
 
 1. **UI orchestration layer** (`src/components`)
-2. **Simulation + rendering layer** (`src/engine`)
+2. **Simulation + rendering engine package** (`@nullcipherr/grit-engine`)
 
-This separation keeps rendering/physics logic independent from React rendering concerns.
+This separation keeps React concerns (UI, controls, layout) independent from simulation internals (physics, spatial indexing, and rendering).
 
 ## Runtime Flow
 
 1. `main.tsx` mounts React.
 2. `App.tsx` provides a full-screen container.
-3. `ParticleSimulator.tsx` manages:
-   - animation loop
-   - pointer interactions
-   - simulation state/config
-   - overlay drawing for obstacles
-4. `SpatialGrid` is rebuilt each frame for local neighbor queries.
-5. Each `Particle` receives forces and resolves interactions.
-6. `WebGLRenderer` uploads instance data and draws via `drawArraysInstanced`.
+3. `ParticleSimulator.tsx` instantiates `GritEngine` with:
+   - `canvas` and `overlayCanvas`
+   - `SimConfig` values from UI state
+   - stats callback (`onStats`) for FPS and particle count
+4. UI interactions (pointer, obstacle mode, presets, pause/resume, clear) call imperative engine methods.
+5. `@nullcipherr/grit-engine` executes the simulation loop and renders frames.
 
-## Core Modules
+## Integration Boundary
 
-- `Particle.ts`: force integration, flocking, collisions, lifetime, boundaries.
-- `SpatialGrid.ts`: hashed grid to avoid global neighbor scans.
-- `Obstacle.ts`: static circular colliders and overlay drawing.
-- `WebGLRenderer.ts`: WebGL2 setup, shader compilation, frame passes, blend modes.
+- The app does not import engine internals directly.
+- The contract is the public package API (`GritEngine`, `DEFAULT_SIM_CONFIG`, `SimConfig`).
+- Engine internals are versioned and maintained in the dedicated engine repository.
 
 ## State Boundaries
 
 - React state is used for UI-level concerns and current config values.
-- Engine state is held in refs/objects to avoid per-frame React re-renders.
+- Engine instance is held in `engineRef` to avoid per-frame React re-renders.
 - UI counters (`FPS`, particle count) are throttled to reduce update overhead.

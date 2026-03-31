@@ -2,7 +2,8 @@
 
 ## Configuration Contract
 
-`SimConfig` fields:
+`SimConfig` is exported by `@nullcipherr/grit-engine` and consumed directly by the UI.
+Current exposed fields:
 
 - `gravity`
 - `friction`

@@ -2,15 +2,15 @@
 
 ## Short Term
 
-- Add keyboard shortcuts and quick preset switching.
-- Add lightweight on-screen help/legend.
-- Improve accessibility semantics for control groups.
+- [x] Add keyboard shortcuts and quick preset switching.
+- [x] Add lightweight on-screen help/legend.
+- [x] Improve accessibility semantics for control groups.
 
 ## Mid Term
 
-- Preset export/import as JSON.
-- Optional simulation step in Web Worker.
-- Benchmark scenario runner for regression tracking.
+- [x] Preset export/import as JSON.
+- [x] Optional worker-assisted simulation step (spawn planning + benchmark analysis).
+- [x] Benchmark scenario runner for regression tracking.
 
 ## Long Term
 
